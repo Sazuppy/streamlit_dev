@@ -47,7 +47,7 @@ st.write(df)
 
 @st.cache_resource
 def get_model():
-    load_model = pickle.load(open('project_1/models/tariff_recommendation.pkl', 'rb'))
+    load_model = pickle.load(open('pages/tariff_recommendation.pkl', 'rb'))
     return load_model
 
 model = get_model()

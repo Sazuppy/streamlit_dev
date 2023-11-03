@@ -1,11 +1,8 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="Hello",
-    page_icon="👋",
-)
+st.set_page_config(page_title="Главная страница", page_icon="👋")
 
-st.write("# Welcome to Streamlit! 👋")
+st.write("# Привет! 👋")
 
 st.sidebar.success("Select a demo above.")
 

@@ -44,12 +44,10 @@ df = user_input_features()
 st.subheader('Таблица с введенными вами параметрами:')
 st.write(df)
 
-load_model = pickle.load(open(r'models\tariff_recommendation.pkl', 'rb'))
+load_model = pickle.load(open('models/tariff_recommendation.pkl', 'rb'))
 
-# Apply model to make predictions
 prediction = load_model.predict(df)
 prediction_proba = load_model.predict_proba(df)
-
 
 st.subheader('Рекомендация')
 tariff = np.array(['Smart','Ultra'])

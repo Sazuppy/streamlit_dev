@@ -44,7 +44,7 @@ df = user_input_features()
 st.subheader('Таблица с введенными вами параметрами:')
 st.write(df)
 
-load_model = pickle.load(open('models/tariff_recommendation.pkl', 'rb'))
+load_model = pickle.load(open('tariff_recommendation.pkl', 'rb'))
 
 prediction = load_model.predict(df)
 prediction_proba = load_model.predict_proba(df)

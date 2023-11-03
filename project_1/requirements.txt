@@ -1,7 +1,4 @@
-sklearn
-sklearn.ensemble
+scikit-learn
 streamlit
-time
 numpy
 pandas
-pickle 

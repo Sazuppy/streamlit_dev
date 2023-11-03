@@ -3,6 +3,7 @@ import time
 import numpy as np
 import pandas as pd
 import pickle 
+from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config(page_title="Рекомендация тарифов", page_icon="📈")
 

@@ -97,9 +97,9 @@ def preprocessing_data(df, scaler, ohe):
     
 @st.cache_resource
 def get_model():
-    load_model = pickle.load(open('models/clients_churn.pkl', 'rb'))
-    ohe_model = pickle.load(open('models/ohe_clients_churn.pkl', 'rb'))
-    scaler_model = pickle.load(open('models/scaler_clients_churn.pkl', 'rb'))
+    load_model = pickle.load(open('project_1/models\clients_churn.pkl', 'rb'))
+    ohe_model = pickle.load(open('project_1/models/ohe_clients_churn.pkl', 'rb'))
+    scaler_model = pickle.load(open('project_1/models/scaler_clients_churn.pkl', 'rb'))
     return load_model, scaler_model, ohe_model
 
 model, sc_model, ohe_model = get_model()

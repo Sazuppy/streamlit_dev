@@ -29,10 +29,10 @@ st.write(
 st.sidebar.header("Признаки для модели машинного обучения")
 
 def user_input_features():
-    calls = st.sidebar.slider('Количество звонков', 0, 60, 500)
-    minutes = st.sidebar.slider('Количество потраченных минут', 0, 400, 3000)
-    messages = st.sidebar.slider('Количество sms-сообщений', 0, 30, 500)
-    mb_used = st.sidebar.slider('Количество потраченного интернет-трафика, Мб', 0, 17000, 70000)
+    calls = st.sidebar.slider('Количество звонков', 0, 500, 60)
+    minutes = st.sidebar.slider('Количество потраченных минут', 0, 3000, 400)
+    messages = st.sidebar.slider('Количество sms-сообщений', 0, 500, 30)
+    mb_used = st.sidebar.slider('Количество потраченного интернет-трафика, Мб', 0, 70000, 17000)
     data = {'calls': calls,
             'minutes': minutes,
             'messages': messages,

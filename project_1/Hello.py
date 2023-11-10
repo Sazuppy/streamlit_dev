@@ -4,7 +4,6 @@ st.set_page_config(page_title="Главная страница", page_icon="👋
 
 st.write("# Привет! 👋")
 
-st.sidebar.success("Select a demo above.")
 
 
 st.markdown(

@@ -83,15 +83,13 @@ def preprocessing_data(df, scaler, ohe):
     df['is_active_member'] = df['is_active_member'].apply(pre_category)
     numeric = ['credit_score', 'age', 'tenure', 'balance', 'num_of_products', 'estimated_salary']
     categorical = ['geography', 'gender']
-    # st.write(df)
     df[numeric] = scaler.transform(df[numeric])
-    # st.write(df)
     tmp = pd.DataFrame(ohe.transform(df[categorical]).toarray(), 
                                    columns=ohe.get_feature_names_out(),
                                    index=df.index)
     df.drop(categorical, axis=1, inplace=True)
     df = df.join(tmp)
-    st.write(df)
+    
             
     return pd.DataFrame(df, index=[0])
     
@@ -105,7 +103,6 @@ def get_model():
 model, sc_model, ohe_model = get_model()
 
 df_new = preprocessing_data(df, sc_model, ohe_model)
-# st.write(df)
 
 prediction = model.predict(df_new)
 prediction_proba = model.predict_proba(df_new)

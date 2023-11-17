@@ -156,8 +156,7 @@ with st.expander("Примеры SQL запросов"):
         st.markdown('## Результат запроса:')
         st.write(query_db(examples[query]))
 
-def clear_text():
-    st.session_state.title = ""
+
 
 def submit():
     st.session_state.title = st.session_state.widget
@@ -165,10 +164,12 @@ def submit():
 
 st.text_input("Введите ваш SQL запрос", key="widget", on_change=submit)
 
+if 'title' not in st.session_state:
+    st.session_state.title = ""    
+
 title = st.session_state.title    
 
-if title not in st.session_state:
-    st.session_state.title = ""    
+
 
 # st.write(title)       
 # title = st.text_input('Введите ваш SQL запрос')

@@ -2,3 +2,4 @@ scikit-learn==1.2.2
 streamlit
 numpy
 pandas
+sqlalchemy==2.0.20

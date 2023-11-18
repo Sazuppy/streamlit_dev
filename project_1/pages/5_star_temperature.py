@@ -2,110 +2,78 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle 
-from catboost import CatBoostRegressor
+import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
+from math import ceil
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
-import datetime
+from sklearn.compose import ColumnTransformer
 
-st.set_page_config(page_title="# Определение стоимости автомобилей", page_icon="📈")
+st.set_page_config(page_title="# Прогнозирование температуры звезды", page_icon="📈")
 
-st.markdown('# Прогнозирование оттока клиентов в сети отелей «Как в гостях»')
+st.markdown('# Прогнозирование температуры звезды')
 
-st.write(
-    """Сервис по продаже автомобилей с пробегом «Не бит, не крашен» разрабатывает приложение для привлечения новых клиентов. В нём можно быстро узнать рыночную стоимость своего автомобиля. 
-    В вашем распоряжении исторические данные: технические характеристики, комплектации и цены автомобилей. Вам нужно построить модель для определения стоимости. 
+with st.expander("Описание проекта"):
+    st.write("""
+        Вам пришла задача от обсерватории «Небо на ладони»: придумать, как с помощью нейросети определять температуру на поверхности обнаруженных звёзд. Обычно для расчёта температуры учёные пользуются следующими методами:  
+- Закон смещения Вина.
+- Закон Стефана-Больцмана.
+- Спектральный анализ.  
 
-Описание данных:
+Каждый из них имеет плюсы и минусы. Обсерватория хочет внедрить технологии машинного обучения для предсказания температуры звёзд, надеясь, что этот метод будет наиболее точным и удобным.  
+В базе обсерватории есть характеристики уже изученных 240 звёзд.
+**Характеристики**   
+- Относительная светимость L/Lo — светимость звезды относительно Солнца.
+- Относительный радиус R/Ro — радиус звезды относительно радиуса Солнца.
+- Абсолютная звёздная величина Mv — физическая величина, характеризующая блеск звезды.
+- Звёздный цвет (white, red, blue, yellow, yellow-orange и др.) — цвет звезды, который определяют на основе спектрального анализа.
+- Тип звезды.  
+    - 0 - Коричневый карлик
+    - 1 - Красный карлик
+    - 2 - Белый карлик
+    - 3 - Звёзды главной последовательности
+    - 4 - Сверхгигант
+    - 5 - Гипергигант  
 
-- DateCrawled — дата скачивания анкеты из базы
-- VehicleType — тип автомобильного кузова
-- RegistrationYear — год регистрации автомобиля
-- Gearbox — тип коробки передач
-- Power — мощность (л. с.)
-- Model — модель автомобиля
-- Kilometer — пробег (км)
-- RegistrationMonth — месяц регистрации автомобиля
-- FuelType — тип топлива
-- Brand — марка автомобиля
-- Repaired — была машина в ремонте или нет
-- DateCreated — дата создания анкеты
-- NumberOfPictures — количество фотографий автомобиля
-- PostalCode — почтовый индекс владельца анкеты (пользователя)
-- LastSeen — дата последней активности пользователя  
+- Абсолютная температура T(K) — температура на поверхности звезды в Кельвинах.  
 
-Целевой признак:  
-- Price — цена (евро)
-    """
-)
+В этом самостоятельном проекте вам необходимо разработать нейронную сеть, которая поможет предсказывать абсолютную температуру на поверхности звезды.
+ Справочная информация:  
+Светимость Солнца (англ. Average Luminosity of Sun)  
+ $L_0 = 3.828 \cdot 10^{26}\,Вт$   
+
+Радиус Солнца (англ. Average Radius of Sun)   
+ $R_0 = 6.9551\cdot 10^8\,м$  
+    """)
+
 
 st.sidebar.header("Признаки для модели машинного обучения")
 
-def changes(df):
-    pass
+def star_type_cat(type_star):
+    type_dict = {'Коричневый карлик':0,
+    'Красный карлик':1,
+    'Белый карлик':2,
+    'Звёзды главной последовательности':3,
+    'Сверхгигант':4,
+    'Гипергигант':5 
+    }
+    return type_dict[type_star]
 
 def user_input_features():
-    VehicleType = st.sidebar.selectbox('тип автомобильного кузова', ('suv', 'convertible', 'sedan', 'wagon', 'small', 'bus', 'coupe',
-       'unknown', 'other'))
-    RegistrationYear = st.sidebar.slider('год регистрации автомобиля', 1900, 2018, 2000)
-    Gearbox = st.sidebar.selectbox('тип коробки передач', ('manual', 'auto', 'unknown'))
-    Power = st.sidebar.slider('мощность (л. с.)', 1, 1000, 300)
-    Model = st.sidebar.selectbox('модель автомобиля', ('tiguan', 'fortwo', '3er', 'unknown', 'logan', 'mondeo', 'golf',
-       'astra', 'polo', 'omega', 'zafira', 'touran', 'other', 'c_klasse',
-       'cooper', '2_reihe', 'rav', 'clio', '601', '500', 'laguna', 'a4',
-       'civic', 'picanto', 'combo', 'boxster', 'stilo', 'ka', 'a3', 'eos',
-       '7er', 'passat', 'tt', 'focus', 'fiesta', 'twingo', 'panda',
-       'e_klasse', 'xc_reihe', 'carnival', 'kuga', 'a6', 'a_klasse',
-       '5er', 'caddy', '6_reihe', 'cc', 'm_klasse', 'vectra', 'mx_reihe',
-       'transit', 'insignia', 'corsa', 'discovery', 'bora', 'transporter',
-       'touareg', 'lupo', 'leon', 'galant', 'v50', 'vito', '1_reihe',
-       'colt', 'c5', 'cl', 'c4', 'v40', '3_reihe', 'sharan', 'slk',
-       'galaxy', 'z_reihe', 'kangoo', 'c_max', 'clk', 'escort',
-       'scirocco', 'avensis', 'ibiza', 'alhambra', 'octavia', 'megane',
-       'pajero', '1er', 'auris', 'arosa', 'roadster', 'jimny', 's_klasse',
-       'punto', 'ducato', 'agila', 'a1', 'x_reihe', 'meriva', 'i_reihe',
-       'seicento', 'berlingo', 'captiva', 'ceed', 'q5', '156', 'beetle',
-       'fabia', '147', 'citigo', '80', '900', 'phaeton', 'sandero',
-       'kalos', 'roomster', 'rx_reihe', '5_reihe', 'cordoba', 'forfour',
-       'qashqai', 'a8', 's_type', 'c3', 'micra', 'matiz', 'scenic',
-       'clubman', 'antara', '4_reihe', 'superb', 'santa', 'primera',
-       'b_klasse', 'tigra', 'yaris', 'modus', '159', 'carisma', 'cayenne',
-       'cuore', 'viano', 'x_trail', 'espace', 'exeo', 'yeti', 'fox',
-       'duster', 'spider', 'grand', 'mustang', 'c2', '100', 'vivaro',
-       'niva', 'corolla', 'r19', 'sorento', 'terios', 'swift', 'fusion',
-       'a5', 'x_type', 'cherokee', 'one', 'verso', 'rio', 'm_reihe',
-       'cr_reihe', 'altea', 'juke', 'v_klasse', 'toledo', 'jazz', 'v70',
-       'delta', 'outlander', 'signum', 'jetta', 'calibra', 's60', 'doblo',
-       'impreza', 'forester', '911', 'sportage', 'lybra', '850',
-       'sprinter', 'sl', 'c1', 'voyager', 'kadett', 'aveo', 'bravo',
-       'justy', 'almera', 'freelander', 'ptcruiser', 'tucson', 'aygo',
-       'kaefer', 'up', 's_max', 'getz', 'a2', 'cx_reihe', 'elefantino',
-       '90', 'lancer', 'q7', 'defender', 'ypsilon', 'c_reihe', 'accord',
-       'mii', 'nubira', 'glk', 'sirion', 'lanos', 'navara', '6er',
-       'croma', '300c', 'range_rover', 'g_klasse', 'range_rover_sport',
-       'note', 'spark', 'b_max', 'crossfire', 'move', 'kappa', '145',
-       'legacy', 'charade', 'musa', 'kalina', 'lodgy', 'serie_2', 'q3',
-       'samara', 'wrangler', 'materia', 'amarok', '9000', '200', 'i3',
-       'v60', 'gl', 'rangerover'))
-    Kilometer = st.sidebar.slider('пробег (км)', 1000, 150000, 30000)
-    FuelType = st.sidebar.selectbox('тип топлива', ('gasoline', 'petrol', 'unknown', 'electric', 'lpg', 'other', 'cng',
-       'hybrid'))
-    Brand = st.sidebar.selectbox('марка автомобиля', ('volkswagen', 'smart', 'bmw', 'dacia', 'ford', 'opel',
-       'mitsubishi', 'mercedes_benz', 'renault', 'mini', 'peugeot',
-       'toyota', 'citroen', 'trabant', 'fiat', 'audi', 'porsche', 'honda',
-       'kia', 'mazda', 'volvo', 'suzuki', 'land_rover', 'seat', 'hyundai',
-       'skoda', 'chevrolet', 'nissan', 'sonstige_autos', 'alfa_romeo',
-       'saab', 'rover', 'daewoo', 'chrysler', 'jaguar', 'daihatsu',
-       'lancia', 'jeep', 'lada', 'subaru'))
-    Repaired = st.sidebar.selectbox('была машина в ремонте или нет', ('no', 'unknown', 'yes'))
+    star_color = st.sidebar.selectbox('цвет звезды, который определяют на основе спектрального анализа', ('red', 'blue', 'white', 'blue-white', 'orange', 'yellow-white', 'whitish'))
+    luminosity = st.sidebar.slider('светимость звезды относительно Солнца', 0.00008, 900000.0, 2000.0)
+    radius = st.sidebar.slider('радиус звезды относительно радиуса Солнца', 0.007, 2000.0, 200.0)
+    abs_magnitude = st.sidebar.slider('физическая величина, характеризующая блеск звезды', -12.0, 25.0, 10.0)
+    star_type = st.sidebar.selectbox('цвет звезды, который определяют на основе спектрального анализа', ('Коричневый карлик', 'Красный карлик', 'Белый карлик', 'Звёзды главной последовательности',
+                                                                                                         'Сверхгигант', 'Гипергигант'))
     
-    data = {'VehicleType': VehicleType,
-            'RegistrationYear': RegistrationYear,
-            'Gearbox': Gearbox,
-            'Power': Power,
-            'Model': Model,
-            'Kilometer': Kilometer,
-            'FuelType': FuelType,
-            'Brand': Brand,
-            'Repaired': Repaired
+    data = {'luminosity': luminosity,
+            'radius':radius,
+            'abs_magnitude':abs_magnitude,
+            'star_color':star_color,
+            'star_type':star_type
             }
     features = pd.DataFrame(data, index=[0])
     return features
@@ -117,32 +85,63 @@ st.subheader('Таблица с введенными вами параметра
 st.write(df)
    
 def preprocessing_data(df, scaler, ohe):
-    numeric = ['Power', 'Kilometer', 'RegistrationYear']
-    categorial = ['FuelType', 'Repaired', 'Gearbox', 'VehicleType', 'Brand', 'Model']
+    df['star_type']=df['star_type'].apply(star_type_cat)
+    numeric = ['luminosity', 'radius', 'abs_magnitude']
+    categorial = ['star_color', 'star_type']
     df[numeric] = scaler.transform(df[numeric])
     tmp = pd.DataFrame(ohe.transform(df[categorial]).toarray(), 
                                    columns=ohe.get_feature_names_out(),
                                    index=df.index)
     df.drop(categorial, axis=1, inplace=True)
     df = df.join(tmp).sort_index(axis=1)
-    
-            
-    return pd.DataFrame(df, index=[0])
-    
-@st.cache_resource
+    df = torch.FloatTensor(df.values)
+    return df
+
+class Net(nn.Module):
+    def __init__(self, input_size, hidden_size1, hidden_size2, num_classes):
+        super(Net, self).__init__()
+        
+        self.fc1 = nn.Linear(input_size, hidden_size1)
+        self.act1 = nn.Tanh()
+        
+        self.fc2 = nn.Linear(hidden_size1, hidden_size2)
+        self.act2 = nn.ReLU()
+        
+        self.fc3 = nn.Linear(hidden_size2, num_classes)
+        
+        
+        
+    def forward(self, x):
+        out = self.fc1(x)
+        out = self.act1(out)
+        
+        out = self.fc2(out)
+        out = self.act2(out)
+        
+        out = self.fc3(out)
+        
+        return out    
+
+
+def get_model_pre():
+    ohe_model = pickle.load(open('project_1/models/ohe_star_temperature_pred.pkl', 'rb'))
+    scaler_model = pickle.load(open('project_1/models/scaler_star_temperature_pred.pkl', 'rb'))
+    return scaler_model, ohe_model
+
 def get_model():
-    load_model = pickle.load(open('project_1/models/car_cost_pred.pkl', 'rb'))
-    ohe_model = pickle.load(open('project_1/models/ohe_car_cost_pred.pkl', 'rb'))
-    scaler_model = pickle.load(open('project_1/models/scaler_car_cost_pred.pkl', 'rb'))
-    return load_model, scaler_model, ohe_model
+    net = Net(df_new.shape[1], 700, 850, 1)
+    net.load_state_dict(torch.load('project_1/models/star_temperature_pred.pkl'))
+    net.eval()
+    prediction = net.forward(df_new).detach().numpy()[0][0]
+    
+    return prediction
 
-model, sc_model, ohe_model = get_model()
-
+sc_model, ohe_model = get_model_pre()
 df_new = preprocessing_data(df, sc_model, ohe_model)
-# st.write(df_new)
-prediction = model.predict(df_new)
+
+model_pred = get_model()
+
+st.subheader('Температура звезды:')
+st.write(str(model_pred) + ' K')
 
 
-st.subheader('Рекомендованная стоимость')
-rounded_prediction = np.around(prediction)
-st.write(str(abs(rounded_prediction.item())) + ' евро')

@@ -19,7 +19,7 @@ with st.expander("Описание проекта"):
         - num_orders - число заказов
     """)
 
-df_old = pd.read_csv('D:/GitHub/yandex_project/18_taxi_orders_prediction/taxi.csv', index_col=[0], parse_dates=[0]).sort_index().resample('1H').sum()
+df_old = pd.read_csv('project_1/models/taxi.csv', index_col=[0], parse_dates=[0]).sort_index().resample('1H').sum()
 
 
 def user_input_features():

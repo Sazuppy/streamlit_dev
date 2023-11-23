@@ -6,3 +6,5 @@ sqlalchemy==2.0.20
 psycopg2-binary
 torch
 catboost 
+transformers
+langid

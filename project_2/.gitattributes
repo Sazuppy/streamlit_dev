@@ -1,2 +1,0 @@
-crashes.feather filter=lfs diff=lfs merge=lfs -text
-crashes_small.feather filter=lfs diff=lfs merge=lfs -text

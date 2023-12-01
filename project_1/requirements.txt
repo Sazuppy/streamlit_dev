@@ -8,3 +8,4 @@ torch
 catboost 
 transformers
 langid
+tensorflow==2.15.0

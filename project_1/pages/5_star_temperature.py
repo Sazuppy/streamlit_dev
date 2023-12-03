@@ -10,7 +10,6 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
-from st_pages import show_pages_from_config
 
 st.set_page_config(page_title="# Прогнозирование температуры звезды")
 

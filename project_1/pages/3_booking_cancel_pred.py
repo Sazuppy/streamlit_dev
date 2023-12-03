@@ -5,7 +5,6 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
-from st_pages import show_pages_from_config
 
 st.set_page_config(page_title="# Прогнозирование оттока клиентов в сети отелей «Как в гостях»")
 

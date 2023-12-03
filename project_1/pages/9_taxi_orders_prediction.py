@@ -4,8 +4,6 @@ import pandas as pd
 import pickle 
 from catboost import CatBoostRegressor
 import datetime
-from st_pages import show_pages_from_config
-
 
 
 st.set_page_config(page_title="# Прогнозирование заказов такси")

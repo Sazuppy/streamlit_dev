@@ -1,8 +1,8 @@
 import streamlit as st
-
+from pathlib import Path
 st.set_page_config(page_title="Главная страница")
 
-from st_pages import Page, show_pages_from_config, show_pages
+from st_pages import Page, show_pages
 
 show_pages(
     [

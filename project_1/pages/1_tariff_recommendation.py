@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 import pickle 
 from sklearn.ensemble import RandomForestClassifier
-from st_pages import show_pages_from_config
 
 st.set_page_config(page_title="Рекомендация тарифов")
 

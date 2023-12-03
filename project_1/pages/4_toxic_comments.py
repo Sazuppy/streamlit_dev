@@ -7,7 +7,6 @@ from sklearn.linear_model import LogisticRegression
 import numpy as np
 import torch as t
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from st_pages import show_pages_from_config
 
 st.set_page_config(page_title="# Выявление негативных комментариев с BERT")
 

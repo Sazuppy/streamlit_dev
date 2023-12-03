@@ -131,9 +131,9 @@ def preprocessing_data(df, scaler, ohe):
     
 @st.cache_resource
 def get_model():
-    load_model = pickle.load(open('project_1/models/car_cost_pred.pkl', 'rb'))
-    ohe_model = pickle.load(open('project_1/models/ohe_car_cost_pred.pkl', 'rb'))
-    scaler_model = pickle.load(open('project_1/models/scaler_car_cost_pred.pkl', 'rb'))
+    load_model = pickle.load(open('models/car_cost_pred.pkl', 'rb'))
+    ohe_model = pickle.load(open('models/ohe_car_cost_pred.pkl', 'rb'))
+    scaler_model = pickle.load(open('models/scaler_car_cost_pred.pkl', 'rb'))
     return load_model, scaler_model, ohe_model
 
 model, sc_model, ohe_model = get_model()

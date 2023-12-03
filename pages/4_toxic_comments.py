@@ -73,7 +73,7 @@ def preprocessing(text):
     return embeddings
 
 def query(features):
-    model = pickle.load(open('project_1/models/toxic_comments_bert.pkl', 'rb'))
+    model = pickle.load(open('models/toxic_comments_bert.pkl', 'rb'))
     predict = model.predict(features)
     return predict
 

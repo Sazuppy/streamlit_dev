@@ -6,17 +6,17 @@ from st_pages import Page, show_pages
 
 show_pages(
     [
-        Page("project_1/Hello.py", "Главная страница", "🏠"),
-        Page("project_1/pages/1_tariff_recommendation.py", "Рекомендация тарифа", ":receipt:"),
-        Page("project_1/pages/2_clients_churn.py", "Отток клиентов «Бета-Банка»", ":classical_building:"),
-        Page("project_1/pages/3_booking_cancel_pred.py", "Прогнозирование оттока клиентов в сети отелей «Как в гостях»", ":house_buildings:"),
-        Page("project_1/pages/4_toxic_comments.py", "Выявление негативных комментариев с BERT", ":female-student:"),
-        Page("project_1/pages/5_star_temperature.py", "Прогнозирование температуры звезды", ":star:"),
-        Page("project_1/pages/6_sql_stackoverflow.py", "Анализ данных StackOverflow", ":page_facing_up:"),
-        Page("project_1/pages/7_car_cost_pred.py", "Определение стоимости автомобилей", ":car:"),
-        Page("project_1/pages/8_accident_prediction.py", "Разработка модели для оценки ДТП", ":rotating_light:"),
-        Page("project_1/pages/9_taxi_orders_prediction.py", "Прогнозирование заказов такси", ":taxi:"),
-        Page("project_1/pages/10_power_forecasting.py", "Потребление электроэнергии производством", ":factory:")
+        Page("Home.py", "Главная страница", "🏠"),
+        Page("pages/1_tariff_recommendation.py", "Рекомендация тарифа", ":receipt:"),
+        Page("pages/2_clients_churn.py", "Отток клиентов «Бета-Банка»", ":classical_building:"),
+        Page("pages/3_booking_cancel_pred.py", "Прогнозирование оттока клиентов в сети отелей «Как в гостях»", ":house_buildings:"),
+        Page("pages/4_toxic_comments.py", "Выявление негативных комментариев с BERT", ":female-student:"),
+        Page("pages/5_star_temperature.py", "Прогнозирование температуры звезды", ":star:"),
+        Page("pages/6_sql_stackoverflow.py", "Анализ данных StackOverflow", ":page_facing_up:"),
+        Page("pages/7_car_cost_pred.py", "Определение стоимости автомобилей", ":car:"),
+        Page("pages/8_accident_prediction.py", "Разработка модели для оценки ДТП", ":rotating_light:"),
+        Page("pages/9_taxi_orders_prediction.py", "Прогнозирование заказов такси", ":taxi:"),
+        Page("pages/10_power_forecasting.py", "Потребление электроэнергии производством", ":factory:")
     ]
 )
 st.write("## Привет, Меня зовут Махнев Андрей! 👋")

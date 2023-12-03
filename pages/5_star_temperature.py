@@ -124,13 +124,13 @@ class Net(nn.Module):
 
 
 def get_model_pre():
-    ohe_model = pickle.load(open('project_1/models/ohe_star_temperature_pred.pkl', 'rb'))
-    scaler_model = pickle.load(open('project_1/models/scaler_star_temperature_pred.pkl', 'rb'))
+    ohe_model = pickle.load(open('models/ohe_star_temperature_pred.pkl', 'rb'))
+    scaler_model = pickle.load(open('models/scaler_star_temperature_pred.pkl', 'rb'))
     return scaler_model, ohe_model
 
 def get_model():
     net = Net(df_new.shape[1], 700, 850, 1)
-    net.load_state_dict(torch.load('project_1/models/star_temperature_pred.pkl'))
+    net.load_state_dict(torch.load('models/star_temperature_pred.pkl'))
     net.eval()
     prediction = net.forward(df_new).detach().numpy()[0][0]
     

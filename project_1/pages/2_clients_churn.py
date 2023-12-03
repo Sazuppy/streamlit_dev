@@ -4,7 +4,8 @@ import pandas as pd
 import pickle 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
-
+from st_pages import show_pages_from_config
+show_pages_from_config()
 st.set_page_config(page_title="# Отток клиентов «Бета-Банка»")
 
 st.markdown('# Отток клиентов «Бета-Банка»')

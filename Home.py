@@ -33,10 +33,10 @@ st.markdown(
     обучения на курсах Яндекс Практикум по направлению Data Science Plus.     
     [Ссылка на профиль с проектами на GitHub](https://github.com/Sazuppy/yandex_project)
     
-    Технологии которые были изучены в процессе обучения и задействованы в данных проектах:
-    Streamlit, Keras, TensorFlow, scikit-learn, scipy, PostgreSQL, Pandas, Numpy, Matplotlib
-    
-    Так же хочу познакомить с отдельным проектом компьтерного зрения, который создан так же на основе учебного проекта Яндекс Практикум.   
+    Технологии которые были мною изучены в процессе обучения и применены в данном проекте и проектах Яндекс Практикум:
+    Streamlit, Keras, TensorFlow, scikit-learn, scipy, PostgreSQL, Pandas, Numpy, Matplotlib, PyTorch, Transformers.
+        
+    Так же хочу познакомить с отдельным проектом компьтерного зрения, который создан на основе учебного проекта Яндекс Практикум.   
     [Определние возраска человека по фотографии](https://agedetermination-xhmkruwueivfwofycnmxf7.streamlit.app/)
 
 """

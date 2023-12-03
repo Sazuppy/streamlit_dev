@@ -5,7 +5,7 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
-st.set_page_config(page_title="# Отток клиентов «Бета-Банка»", page_icon="📈")
+st.set_page_config(page_title="# Отток клиентов «Бета-Банка»")
 
 st.markdown('# Отток клиентов «Бета-Банка»')
 

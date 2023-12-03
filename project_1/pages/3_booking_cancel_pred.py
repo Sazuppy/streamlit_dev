@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 
-st.set_page_config(page_title="# Прогнозирование оттока клиентов в сети отелей «Как в гостях»", page_icon="📈")
+st.set_page_config(page_title="# Прогнозирование оттока клиентов в сети отелей «Как в гостях»")
 
 st.markdown('# Прогнозирование оттока клиентов в сети отелей «Как в гостях»')
 

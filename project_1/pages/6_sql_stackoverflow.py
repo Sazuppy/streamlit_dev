@@ -3,7 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine 
 from PIL import Image
 
-st.set_page_config(page_title="# Анализ данных StackOverflow", page_icon="📈")
+st.set_page_config(page_title="# Анализ данных StackOverflow")
 
 st.markdown('# Анализ данных StackOverflow')
 

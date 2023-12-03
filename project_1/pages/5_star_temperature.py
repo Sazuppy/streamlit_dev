@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
-st.set_page_config(page_title="# Прогнозирование температуры звезды", page_icon="📈")
+st.set_page_config(page_title="# Прогнозирование температуры звезды")
 
 st.markdown('# Прогнозирование температуры звезды')
 

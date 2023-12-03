@@ -5,7 +5,7 @@ import pandas as pd
 import pickle 
 from sklearn.ensemble import RandomForestClassifier
 
-st.set_page_config(page_title="Рекомендация тарифов", page_icon="📈")
+st.set_page_config(page_title="Рекомендация тарифов")
 
 st.markdown('# Рекомендация тарифов')
 

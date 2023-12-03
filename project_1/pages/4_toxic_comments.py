@@ -8,7 +8,7 @@ import numpy as np
 import torch as t
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-st.set_page_config(page_title="# Выявление негативных комментариев с BERT", page_icon="📈")
+st.set_page_config(page_title="# Выявление негативных комментариев с BERT")
 
 st.markdown('# Выявление негативных комментариев с BERT')
 
@@ -77,7 +77,7 @@ def query(features):
     predict = model.predict(features)
     return predict
 
-comment = st.text_area("Введите ваш комментарий, модель работает на английском и русском языках", "")
+comment = st.text_area("Введите ваш комментарий, модель работает на английском и русском языках и нажмите Ctrl+Enter", "")
 result = None
 
 if comment:

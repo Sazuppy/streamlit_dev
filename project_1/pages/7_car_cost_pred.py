@@ -6,7 +6,7 @@ from catboost import CatBoostRegressor
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 
-st.set_page_config(page_title="# Определение стоимости автомобилей", page_icon="📈")
+st.set_page_config(page_title="# Определение стоимости автомобилей")
 
 st.markdown('# Определение стоимости автомобилей')
 

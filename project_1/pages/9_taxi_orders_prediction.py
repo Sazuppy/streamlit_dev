@@ -5,7 +5,7 @@ import pickle
 from catboost import CatBoostRegressor
 import datetime
 
-st.set_page_config(page_title="# Прогнозирование заказов такси", page_icon="📈")
+st.set_page_config(page_title="# Прогнозирование заказов такси")
 
 st.markdown('# Прогнозирование заказов такси')
 

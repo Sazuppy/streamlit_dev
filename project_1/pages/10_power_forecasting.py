@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 
-st.set_page_config(page_title="# Оптимизация производственных расходов металлургического комбината.", page_icon="📈")
+st.set_page_config(page_title="# Оптимизация производственных расходов металлургического комбината.")
 
 st.markdown('# Оптимизация производственных расходов металлургического комбината.')
 
@@ -122,8 +122,8 @@ def preprocessing_data(df, scaler):
     
 @st.cache_resource
 def get_model():
-    load_model = pickle.load(open('models/power_forecasting.pkl', 'rb'))
-    scaler_model = pickle.load(open('models/scaler_power_forecasting.pkl', 'rb'))
+    load_model = pickle.load(open('project_1/models/power_forecasting.pkl', 'rb'))
+    scaler_model = pickle.load(open('project_1/models/scaler_power_forecasting.pkl', 'rb'))
     return load_model, scaler_model
 
 model, sc_model = get_model()

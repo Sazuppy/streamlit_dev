@@ -37,7 +37,7 @@ st.markdown(
     Streamlit, Keras, TensorFlow, scikit-learn, scipy, PostgreSQL, Pandas, Numpy, Matplotlib, PyTorch, Transformers.
         
     Так же хочу познакомить с отдельным проектом компьтерного зрения, который создан на основе учебного проекта Яндекс Практикум.   
-    [Определние возраска человека по фотографии](https://agedetermination-xhmkruwueivfwofycnmxf7.streamlit.app/)
+    [Определние возраска человека по фотографии](https://age-determination.streamlit.app/)
 
 """
 )

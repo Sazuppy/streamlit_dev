@@ -9,3 +9,4 @@ catboost
 transformers
 langid
 tensorflow==2.15.0
+st_pages

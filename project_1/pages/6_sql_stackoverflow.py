@@ -3,11 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine 
 from PIL import Image
 from st_pages import show_pages_from_config
-st.set_page_config(
-    path = "project_1/pages/6_sql_stackoverflow.py",
-    name = "Анализ данных StackOverflow",
-    icon = ":page_facing_up:",
-)
+
 st.set_page_config(page_title="# Анализ данных StackOverflow")
 
 st.markdown('# Анализ данных StackOverflow')

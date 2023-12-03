@@ -8,11 +8,7 @@ import numpy as np
 import torch as t
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from st_pages import show_pages_from_config
-st.set_page_config(
-    path = "project_1/pages/4_toxic_comments.py",
-    name = "Выявление негативных комментариев с BERT",
-    icon = ":female-student:",
-)
+
 st.set_page_config(page_title="# Выявление негативных комментариев с BERT")
 
 st.markdown('# Выявление негативных комментариев с BERT')

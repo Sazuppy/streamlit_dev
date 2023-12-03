@@ -5,7 +5,11 @@ import pandas as pd
 import pickle 
 from sklearn.ensemble import RandomForestClassifier
 from st_pages import show_pages_from_config
-show_pages_from_config()
+st.set_page_config(
+path = "project_1/pages/1_tariff_recommendation.py",
+name = "Рекомендация тарифа",
+icon = ":receipt:",
+)
 st.set_page_config(page_title="Рекомендация тарифов")
 
 st.markdown('# Рекомендация тарифов')

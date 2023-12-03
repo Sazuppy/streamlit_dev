@@ -5,7 +5,13 @@ import pickle
 from catboost import CatBoostRegressor
 import datetime
 from st_pages import show_pages_from_config
-show_pages_from_config()
+
+st.set_page_config(
+    path = "project_1/pages/9_taxi_orders_prediction.py",
+    name = "Прогнозирование заказов такси",
+    icon = ":taxi:",
+)
+
 st.set_page_config(page_title="# Прогнозирование заказов такси")
 
 st.markdown('# Прогнозирование заказов такси')

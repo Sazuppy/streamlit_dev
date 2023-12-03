@@ -6,7 +6,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 from st_pages import show_pages_from_config
-show_pages_from_config()
+st.set_page_config(
+    path = "project_1/pages/8_accident_prediction.py",
+    name = "Разработка модели для оценки ДТП",
+    icon = ":rotating_light:",
+)
 st.set_page_config(page_title="# Разработка модели для оценки ДТП по выбранному маршруту движения.")
 
 st.markdown('# Разработка модели для оценки ДТП по выбранному маршруту движения.')

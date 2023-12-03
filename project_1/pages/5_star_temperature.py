@@ -11,7 +11,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from st_pages import show_pages_from_config
-show_pages_from_config()
+st.set_page_config(
+    path = "project_1/pages/5_star_temperature.py",
+    name = "Прогнозирование температуры звезды",
+    icon = ":star:",
+)
 st.set_page_config(page_title="# Прогнозирование температуры звезды")
 
 st.markdown('# Прогнозирование температуры звезды')

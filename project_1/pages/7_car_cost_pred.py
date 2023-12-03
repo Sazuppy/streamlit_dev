@@ -6,7 +6,11 @@ from catboost import CatBoostRegressor
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 from st_pages import show_pages_from_config
-show_pages_from_config()
+st.set_page_config(
+    path = "project_1/pages/7_car_cost_pred.py",
+    name = "Определение стоимости автомобилей",
+    icon = ":car:",
+)
 st.set_page_config(page_title="# Определение стоимости автомобилей")
 
 st.markdown('# Определение стоимости автомобилей')

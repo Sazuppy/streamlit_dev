@@ -6,7 +6,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 from st_pages import show_pages_from_config
-show_pages_from_config()
+
+st.set_page_config(
+    path = "project_1/pages/10_power_forecasting.py",
+    name = "Потребление электроэнергии производством",
+    icon = ":factory:",
+)
 st.set_page_config(page_title="# Оптимизация производственных расходов металлургического комбината.")
 
 st.markdown('# Оптимизация производственных расходов металлургического комбината.')

@@ -2,10 +2,14 @@ import streamlit as st
 
 st.set_page_config(page_title="Главная страница")
 
-from st_pages import show_pages_from_config
+from st_pages import Page, show_pages_from_config, show_pages
+st.set_page_config(
+    path = "project_1/Hello.py",
+    name = "Главная страница",
+    icon = "🏠",
+)
 show_pages_from_config()
 
-from st_pages import Page, show_pages
 
 show_pages(
     [

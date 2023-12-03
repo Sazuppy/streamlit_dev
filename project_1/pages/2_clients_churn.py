@@ -5,7 +5,11 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from st_pages import show_pages_from_config
-show_pages_from_config()
+st.set_page_config(
+    path = "project_1/pages/2_clients_churn.py",
+    name = "Отток клиентов «Бета-Банка»",
+    icon = ":classical_building:",
+)
 st.set_page_config(page_title="# Отток клиентов «Бета-Банка»")
 
 st.markdown('# Отток клиентов «Бета-Банка»')

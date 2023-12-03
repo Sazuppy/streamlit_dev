@@ -6,7 +6,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import datetime
 from st_pages import show_pages_from_config
-show_pages_from_config()
+st.set_page_config(
+    path = "project_1/pages/3_booking_cancel_pred.py",
+    name = "Прогнозирование оттока клиентов в сети отелей «Как в гостях»",
+    icon = ":house_buildings:",
+)
 st.set_page_config(page_title="# Прогнозирование оттока клиентов в сети отелей «Как в гостях»")
 
 st.markdown('# Прогнозирование оттока клиентов в сети отелей «Как в гостях»')
